@@ -21,7 +21,7 @@
   </script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <!-- EmailJS -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <style>
     .hero-pattern {
       background-color: #ffffff;
@@ -257,8 +257,10 @@
   </footer>
 
   <script>
-    // EmailJS Configuration
-    emailjs.init('b0Em_D5utiU3nuEC3'); // Public Key
+      // EmailJS Configuration
+      (function () {
+        emailjs.init('b0Em_D5utiU3nuEC3'); // Public Key
+      })();
 
     const contactForm = document.getElementById('contactForm');
     const formStatus = document.getElementById('formStatus');
@@ -274,6 +276,8 @@
         to_email: 'ramishan0300@gmail.com' // Your Gmail
       };
 
+      console.log('Form Data:', formData); // Debug log
+
       // Show loading status
       formStatus.style.display = 'block';
       formStatus.textContent = 'Sending...';
@@ -285,6 +289,7 @@
         'template_h2uz66o',      // Template ID
         formData
       ).then(function (response) {
+        console.log('EmailJS Success:', response); // Debug log
         // Success
         formStatus.textContent = '✓ Message sent successfully! We\'ll reach out soon.';
         formStatus.style.color = '#059669';
@@ -295,6 +300,7 @@
           formStatus.style.display = 'none';
         }, 5000);
       }, function (error) {
+        console.error('EmailJS Error:', error); // Debug log
         // Error
         formStatus.textContent = '✗ Error sending message. Please try again or contact directly.';
         formStatus.style.color = '#DC2626';
